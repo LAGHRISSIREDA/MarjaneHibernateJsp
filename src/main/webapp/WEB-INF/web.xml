@@ -3,4 +3,48 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+
+
+    <display-name>MarjanePromo</display-name>
+
+    <!-- start Rootage for General admin  -->
+    <servlet>
+        <servlet-name>General</servlet-name>
+        <servlet-class>com.codesigne.marjanepromo.controller.AdminGeneralController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>General</servlet-name>
+        <url-pattern>*.general</url-pattern>
+    </servlet-mapping>
+
+    <!--  End   -->
+
+    <!-- Start Rootage for Center admin   -->
+
+    <servlet>
+        <servlet-name>Center</servlet-name>
+        <servlet-class>com.codesigne.marjanepromo.controller.AdminCenterController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Center</servlet-name>
+        <url-pattern>*.center</url-pattern>
+    </servlet-mapping>
+
+    <!--  END  -->
+
+    <!--  Start Rootage for Market Manager  -->
+    <servlet>
+        <servlet-name>Manager</servlet-name>
+        <servlet-class>com.codesigne.marjanepromo.controller.MarketMAnagerController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Manager</servlet-name>
+        <url-pattern>*.manager</url-pattern>
+    </servlet-mapping>
+
+
+
+
+
 </web-app>
+
