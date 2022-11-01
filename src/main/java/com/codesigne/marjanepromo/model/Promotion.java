@@ -19,7 +19,9 @@ public class Promotion implements Serializable {
 
     private String status ;
 
-    private Date date;
+    private Date dateStart;
+
+    private Date dateEnd;
 
     @ManyToOne
     private AdminCenter adminCenter;
@@ -30,12 +32,14 @@ public class Promotion implements Serializable {
     //getters and setters
 
     //ToString function
+
     @Override
     public String toString() {
         return "Promotion{" +
                 "id=" + id +
-                ", status=" + status +
-                ", date=" + date +
+                ", status='" + status + '\'' +
+                ", dateStart=" + dateStart +
+                ", dateEnd=" + dateEnd +
                 ", adminCenter=" + adminCenter +
                 ", subCategory=" + subCategory +
                 '}';
