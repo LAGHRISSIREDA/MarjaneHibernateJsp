@@ -1,17 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+    <%--navbar--%>
+    <jsp:include page="views/inc/headers/headerStandard.jsp">
+        <jsp:param name="navbar" value="navbar"/>
+    </jsp:include>
+    <%--end navbar--%>
 
-<jsp:include page="views/inc/headers/headerAdminGeneral.jsp">
-    <jsp:param name="navbar" value="navbar"/>
-</jsp:include>
-
-
-<div>
-    <a href="/hello-servlet">Clique here</a>
-</div>
+    <%--Start--%>
 
 
-<jsp:include page="views/inc/footer.jsp">
-    <jsp:param name="footer" value="footer"/>
-</jsp:include>
+
+    <%--end--%>
+
+
+    <%--    start footer--%>
+    <jsp:include page="views/inc/footer.jsp">
+        <jsp:param name="footer" value="footer"/>
+    </jsp:include>
+    <%-- END FOOTER --%>
