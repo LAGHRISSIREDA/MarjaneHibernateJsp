@@ -10,7 +10,10 @@ import java.io.IOException;
 public class MarketMAnagerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String path = request.getServletPath();
+        if(path.equals("/login.manager")){
+            request.getRequestDispatcher("views/managermarket/loginManager.jsp").forward(request,response);
+        }
     }
 
     @Override

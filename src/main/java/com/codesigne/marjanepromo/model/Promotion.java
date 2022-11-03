@@ -19,6 +19,8 @@ public class Promotion implements Serializable {
 
     private String status ;
 
+    private int point;
+
     private Date dateStart;
 
     private Date dateEnd;
@@ -33,11 +35,13 @@ public class Promotion implements Serializable {
 
     //ToString function
 
+
     @Override
     public String toString() {
         return "Promotion{" +
                 "id=" + id +
                 ", status='" + status + '\'' +
+                ", point=" + point +
                 ", dateStart=" + dateStart +
                 ", dateEnd=" + dateEnd +
                 ", adminCenter=" + adminCenter +

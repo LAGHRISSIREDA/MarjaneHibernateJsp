@@ -26,7 +26,7 @@ public class AdminCenterDao extends AbstractHibernateDao<AdminCenter>{
     }
 
     //getadmin by email
-    public AdminCenter getAdminByEmail(String email){
+    public AdminCenter  getAdminByEmail(String email){
         return jpaService.runInTransaction(entityManager -> {
           return  entityManager.createQuery("select a from AdminCenter a where  a.email = :email",AdminCenter.class)
                     .setParameter("email",email)
@@ -62,23 +62,23 @@ public class AdminCenterDao extends AbstractHibernateDao<AdminCenter>{
     //test functions
     public static void main(String[] args) throws Exception {
         AdminCenter ad = new AdminCenter();
-       ad.setFirstname("reda");
-        ad.setLastname("laghrissi");
-        ad.setEmail("laghrissi.reda01@gmail.com");
-        ad.setPassword("test1234");
-        AdminGeneralDao aaa= new AdminGeneralDao();
-        ad.setAdminGeneral(aaa.getAdminById(1));
+//       ad.setFirstname("reda");
+//        ad.setLastname("laghrissi");
+//        ad.setEmail("laghrissi.reda01@gmail.com");
+//        ad.setPassword("test1234");
+//        AdminGeneralDao aaa= new AdminGeneralDao();
+//        ad.setAdminGeneral(aaa.getAdminById(1));
         AdminCenterDao a = new AdminCenterDao();
-        a.createAdmin(ad);
-
+//        a.createAdmin(ad);
+//
         //===========================tester login
 
-//        ad = a.validateAdminLogin("laghrissi.reda01@gmail.com","12345");
-//        if(ad == null){
-//            System.out.println("Incorrect password or email !");
-//        }else{
-//            System.out.println("Welcome :"+ad.getFirstname()+" === >You are Connected");
-//        }
+        ad = a.validateAdminLogin("laghrissi.reda01@gmail.com","test1234");
+        if(ad == null){
+            System.out.println("Incorrect password or email !");
+        }else{
+            System.out.println("Welcome :"+ad.getFirstname()+" === >You are Connected");
+        }
     }
 
 }

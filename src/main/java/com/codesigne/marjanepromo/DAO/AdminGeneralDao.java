@@ -37,9 +37,7 @@ public class AdminGeneralDao extends AbstractHibernateDao<AdminGeneral>{
 
     // find one admin by email and password
     public AdminGeneral validateAdminLogin(String email,String password){
-//        String email = (String) login[0];
-//        String password = (String) login[1];
-        AdminGeneral admin = getAdminByEmail(email);
+        AdminGeneral admin =getAdminByEmail(email);
         if (admin == null){
             return null;
         }
@@ -48,6 +46,7 @@ public class AdminGeneralDao extends AbstractHibernateDao<AdminGeneral>{
         }else {
             return null;
         }
+
     }
 
     // create admin
@@ -72,18 +71,24 @@ public class AdminGeneralDao extends AbstractHibernateDao<AdminGeneral>{
     }
 
     public static void main(String[] args) {
-//        AdminGeneral a = new AdminGeneral();
-//        a.setFirstname("reda");
-//        a.setLastname("laghrissi");
-//        a.setEmail("test@test.com");
-//        a.setPassword("test");
-        AdminGeneralDao ad = new AdminGeneralDao();
-//        ad.createAdmin(a);
-        if(ad.validateAdminLogin("test@tet.com","test")!=null){
-            System.out.println("Connected==========>");
-        }else{
-            System.out.println("inccorect email or password !!!");
-        }
+       AdminGeneral a = new AdminGeneral();
+       a.setFirstname("youcode");
+        a.setLastname("youcode");
+       a.setEmail("youcode@youcode.com");
+        a.setPassword("youcode");
+       AdminGeneralDao ad = new AdminGeneralDao();
+//       a = ad.getAdminByEmail("youcode@youcode.com");
+//       a = ad.validateAdminLogin("youcode@youcode.com","youcode");
+//       if(a == null) System.out.println("not connected");
+//       else System.out.println("connectedt");
+//        System.out.println();
+        ad.createAdmin(a);
+//       a=ad.validateAdminLogin("test@tet.com","test");
+//        if(a!=null){
+//            System.out.println("Connected==========>");
+//        }else{
+//           System.out.println("inccorect email or password !!!");
+//        }
 //        System.out.println("success");
     }
 }
