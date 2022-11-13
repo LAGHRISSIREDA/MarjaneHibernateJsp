@@ -1,9 +1,11 @@
 package com.codesigne.marjanepromo.DAO;
 
 import com.codesigne.marjanepromo.model.AdminCenter;
+import com.codesigne.marjanepromo.model.Center;
 import com.codesigne.marjanepromo.utils.SendMail;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.codesigne.marjanepromo.utils.Security.checkPassword;
@@ -27,11 +29,16 @@ public class AdminCenterDao extends AbstractHibernateDao<AdminCenter>{
 
     //getadmin by email
     public AdminCenter  getAdminByEmail(String email){
-        return jpaService.runInTransaction(entityManager -> {
+       return jpaService.runInTransaction(entityManager -> {
           return  entityManager.createQuery("select a from AdminCenter a where  a.email = :email",AdminCenter.class)
                     .setParameter("email",email)
                     .getSingleResult();
         });
+
+    }
+
+    public void deleteAdmin(long id){
+        deleteById(id);
     }
 
 
@@ -61,24 +68,34 @@ public class AdminCenterDao extends AbstractHibernateDao<AdminCenter>{
 
     //test functions
     public static void main(String[] args) throws Exception {
-        AdminCenter ad = new AdminCenter();
+//        AdminCenter ad = new AdminCenter();
 //       ad.setFirstname("reda");
 //        ad.setLastname("laghrissi");
 //        ad.setEmail("laghrissi.reda01@gmail.com");
 //        ad.setPassword("test1234");
+        CenterDao center = new CenterDao();
+        center.deleteById(17L);
+//        ad.setCenter(center.getCenterById(3));
 //        AdminGeneralDao aaa= new AdminGeneralDao();
 //        ad.setAdminGeneral(aaa.getAdminById(1));
-        AdminCenterDao a = new AdminCenterDao();
+//        AdminCenterDao a = new AdminCenterDao();
+//        a.createAdmin(ad);
+//        List<AdminCenter> list = new ArrayList<>();
+
+//        list = a.getAllAdmins();
+//        System.out.println(list);
+//        for(AdminCenter aa:list)
+//            System.out.println(aa.toString());
 //        a.createAdmin(ad);
 //
         //===========================tester login
 
-        ad = a.validateAdminLogin("laghrissi.reda01@gmail.com","test1234");
-        if(ad == null){
-            System.out.println("Incorrect password or email !");
-        }else{
-            System.out.println("Welcome :"+ad.getFirstname()+" === >You are Connected");
-        }
+//        ad = a.validateAdminLogin("laghrissi.reda01@gmail.com","test1234");
+//        if(ad == null){
+//            System.out.println("Incorrect password ormail !");
+//        }else{
+//            System.out.println("Welcome :"+ad.getFirstname()+" === >You are Connected");
+//        }
     }
 
 }

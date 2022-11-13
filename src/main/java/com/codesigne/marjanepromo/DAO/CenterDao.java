@@ -16,6 +16,7 @@ public class CenterDao extends AbstractHibernateDao<Center>{
         return findAll();
     }
 
+
     public Center getCenterByVille(String name){
         return jpaService.runInTransaction(entityManager -> {
             return entityManager.createQuery("select c from Center c where c.nom = :nom",Center.class)
@@ -23,6 +24,10 @@ public class CenterDao extends AbstractHibernateDao<Center>{
                     .getSingleResult();
         });
 
+    }
+
+    public Center updateCenter(Center center){
+        return update(center);
     }
 
 

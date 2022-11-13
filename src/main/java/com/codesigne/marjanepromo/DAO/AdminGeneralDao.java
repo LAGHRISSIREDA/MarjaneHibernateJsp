@@ -1,6 +1,7 @@
 package com.codesigne.marjanepromo.DAO;
 
 import com.codesigne.marjanepromo.model.AdminGeneral;
+import jakarta.persistence.NoResultException;
 
 
 import java.util.List;
@@ -28,11 +29,19 @@ public class AdminGeneralDao extends AbstractHibernateDao<AdminGeneral>{
 
     // find one admin by email
     public AdminGeneral getAdminByEmail(String email) {
-        return jpaService.runInTransaction(entityManager -> {
-            return entityManager.createQuery("select a from AdminGeneral a WHERE a.email = :email", AdminGeneral.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
-        });
+        AdminGeneral ad;
+        try{
+            ad =jpaService.runInTransaction(entityManager -> {
+                return entityManager.createQuery("select a from AdminGeneral a WHERE a.email = :email", AdminGeneral.class)
+                        .setParameter("email", email).getSingleResult();
+
+            });
+        }catch (NoResultException nre){
+            return null;
+        }
+
+        return ad;
+
     }
 
     // find one admin by email and password
@@ -72,18 +81,19 @@ public class AdminGeneralDao extends AbstractHibernateDao<AdminGeneral>{
 
     public static void main(String[] args) {
        AdminGeneral a = new AdminGeneral();
-       a.setFirstname("youcode");
-        a.setLastname("youcode");
-       a.setEmail("youcode@youcode.com");
-        a.setPassword("youcode");
+       a.setFirstname("test");
+        a.setLastname("test");
+       a.setEmail("test@test.test");
+        a.setPassword("test1234");
+
        AdminGeneralDao ad = new AdminGeneralDao();
 //       a = ad.getAdminByEmail("youcode@youcode.com");
-//       a = ad.validateAdminLogin("youcode@youcode.com","youcode");
+//       a = ad.validateAdminLogin("youcode@youce.com","youcode");
 //       if(a == null) System.out.println("not connected");
 //       else System.out.println("connectedt");
-//        System.out.println();
+//        if(a==null) System.out.println("noooot");
         ad.createAdmin(a);
-//       a=ad.validateAdminLogin("test@tet.com","test");
+//       a=ad.validateAdminLogin("youcode@ycode.com","test");
 //        if(a!=null){
 //            System.out.println("Connected==========>");
 //        }else{

@@ -10,10 +10,7 @@ import java.io.IOException;
 public class AdminCenterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = request.getServletPath();
-        if(path.equals("/login.center")){
-            request.getRequestDispatcher("views/admincenter/loginCenter.jsp").forward(request,response);
-        }
+
     }
 
     @Override

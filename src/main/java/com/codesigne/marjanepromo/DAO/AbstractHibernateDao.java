@@ -31,7 +31,6 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 
     public boolean create(T entity) {
         return jpaService.runInTransaction(entityManager -> {
-
             entityManager.persist(entity);
             return true;
         });
@@ -45,7 +44,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 
     public void delete(T entity) {
         jpaService.runInTransaction(entityManager -> {
-            entityManager.remove(entity);
+            entityManager.remove(entityManager.merge(entity));
             return null;
         });
     }

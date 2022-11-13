@@ -20,18 +20,27 @@ public class Center implements Serializable {
 
     private String ville;
 
-    @OneToOne
-    private AdminCenter adminCenter;
-    //getters and setters
+    private Boolean dispo;
 
-    //toString function
+    @OneToOne(mappedBy = "center")
+    private AdminCenter adminCenter;
+
     @Override
     public String toString() {
         return "Center{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", ville='" + ville + '\'' +
+                ", dispo=" + dispo +
                 ", adminCenter=" + adminCenter +
                 '}';
     }
+
+
+
+
+    //getters and setters
+
+    //toString function
+
 }
