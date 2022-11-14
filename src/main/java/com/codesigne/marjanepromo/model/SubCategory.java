@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -18,13 +19,16 @@ public class SubCategory implements Serializable {
 
     private String name;
 
-    @OneToOne(mappedBy = "subCategory")
-    private Promotion promotion;
+    @OneToMany(mappedBy = "subCategory",fetch = FetchType.LAZY)
+    private List<Promotion> promotion;
 
     @OneToOne(mappedBy = "subCategory")
     private MarketManager marketManager;
 
+    private boolean dispo;
+
     //ToString function
+
     @Override
     public String toString() {
         return "SubCategory{" +
@@ -32,6 +36,9 @@ public class SubCategory implements Serializable {
                 ", name='" + name + '\'' +
                 ", promotion=" + promotion +
                 ", marketManager=" + marketManager +
+                ", dispo=" + dispo +
                 '}';
     }
+
+
 }

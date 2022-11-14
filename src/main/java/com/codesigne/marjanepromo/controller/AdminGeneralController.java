@@ -28,6 +28,7 @@ public class AdminGeneralController extends HttpServlet {
         List<Center> listCenter = new ArrayList<>();
         List<AdminCenter> listAdmin = new ArrayList<>();
         Center oneCenter = new Center();
+        AdminGeneral a = new AdminGeneral();
 
         if (path.equals("/loginForm.general")) {
             Cookie[] cookies = request.getCookies();
@@ -38,19 +39,19 @@ public class AdminGeneralController extends HttpServlet {
                 }
             }
             if(log.equals("0")){
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            }else{
-                request.setAttribute("log",log);
-//            request.getRequestDispatcher("/views/client/login.jsp").forward(request, response);
                 request.getRequestDispatcher("views/admingeneral/login.jsp").forward(request, response);
-
+            }else{
+//                request.setAttribute("log",log);
+//            request.getRequestDispatcher("/views/client/login.jsp").forward(request, response);
+//                request.getRequestDispatcher("views/admingeneral/dashboard.jsp").forward(request, response);
+                response.sendRedirect("dashboard.general");
             }
              } else if (path.equals("/logout.general")) {
             Cookie cookie = new Cookie("idGeneral", "0");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
             request.setAttribute("log", "0");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("views/admingeneral/login.jsp").forward(request, response);
 
         }else if(path.equals("/delete.general")){
             int idToDelete = Integer.parseInt(request.getParameter("id"));
@@ -59,11 +60,25 @@ public class AdminGeneralController extends HttpServlet {
             oneCenter.setDispo(true);
             c.updateCenter(oneCenter);
             adCenter.deleteAdmin(idToDelete);
-            listAdmin = adCenter.getAllAdmins();
-            listCenter = c.getAllCenter();
-            request.setAttribute("admins",listAdmin);
-            request.setAttribute("center",listCenter);
-            request.getRequestDispatcher("views/admingeneral/dashboard.jsp").forward(request,response);
+            response.sendRedirect("dashboard.general");
+        }else if(path.equals("/dashboard.general")){
+            Cookie[] cookies = request.getCookies();
+            String log = "0";
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("idGeneral")) {
+                    log = cookie.getValue();
+                }
+            }
+            if(log.equals("0")){
+                request.getRequestDispatcher("index.jsp").forward(request,response);
+            }else{
+                listCenter = c.getAllCenter();
+                listAdmin = adCenter.getAllAdmins();
+                request.setAttribute("admin",a);
+                request.setAttribute("center",listCenter);
+                request.setAttribute("admins",listAdmin);
+                request.getRequestDispatcher("views/admingeneral/dashboard.jsp").forward(request,response);
+            }
         }
     }
 
@@ -80,23 +95,19 @@ public class AdminGeneralController extends HttpServlet {
 
 
         if(path.equals("/verify.general")){
-            listCenter = c.getAllCenter();
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-
-
-
-            listAdmin = adCenter.getAllAdmins();
             a = ad.validateAdminLogin(email,password);
+
+
             if(a!=null){
+
                     Cookie ck = new Cookie("idGeneral", String.valueOf(a.getId()));//creating cookie object
                     ck.setMaxAge(24 * 60 * 60);//setting cookie to expiry in 1 day
                     response.addCookie(ck);//adding cookie in the response
-                    request.setAttribute("admin",a);
-                    request.setAttribute("center",listCenter);
-                    request.setAttribute("admins",listAdmin);
-                    request.setAttribute("log",String.valueOf(a.getId()));
-                    request.getRequestDispatcher("views/admingeneral/dashboard.jsp").forward(request,response);
+//                    request.setAttribute("log",String.valueOf(a.getId()));
+                    response.sendRedirect("dashboard.general");
+//                    request.getRequestDispatcher("views/admingeneral/dashboard.jsp").forward(request,response);
             }else{
                 String message = "Incorrect Email or Password !";
                 request.setAttribute("message",message);
@@ -123,6 +134,7 @@ public class AdminGeneralController extends HttpServlet {
                     ac.setFirstname(firstname);
                     ac.setLastname(lastname);
                     ac.setEmail(email);
+                    ac.setEmail(email);
                     ac.setPassword(password);
                     oneCenter = c.getCenterById(idCenter);
                     ac.setCenter(oneCenter);
@@ -132,14 +144,8 @@ public class AdminGeneralController extends HttpServlet {
 
                 //add new center admin
             try {
-
                 adCenter.createAdmin(ac);
-                listAdmin = adCenter.getAllAdmins();
-                listCenter = c.getAllCenter();
-                request.setAttribute("admins",listAdmin);
-                request.setAttribute("center",listCenter);
-
-                request.getRequestDispatcher("views/admingeneral/dashboard.jsp").forward(request,response);
+                response.sendRedirect("dashboard.general");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

@@ -20,9 +20,9 @@
         />
       </div>
       <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-        <form method="post" action="verify.general">
+        <form method="post" action="verify.center">
           <div class="flex flex-row items-center justify-center lg:justify-start">
-            <h1 class="font-bold">Admin General Login Form</h1>
+            <h1 class="font-bold">Center Admin Login Form</h1>
           </div>
 
           <div

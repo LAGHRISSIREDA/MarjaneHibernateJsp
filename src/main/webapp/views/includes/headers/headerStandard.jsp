@@ -58,7 +58,7 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
   <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
-    <div class="p-4 flex flex-row items-center justify-between">
+    <div class="p-2 flex flex-row items-center justify-between">
 
       <img style="width: 80px" src="https://www.marjane.ma/icons/logo_marjane.svg" alt="">
       <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">

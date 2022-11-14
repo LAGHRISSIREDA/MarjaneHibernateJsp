@@ -29,6 +29,14 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
         });
     }
 
+
+    //find list by id
+//    public List findAllById(Long id){
+//        return  jpaService.runInTransaction(entityManager -> {
+//            return entityManager.createQuery("select a from "+this.clazz+" a where a.").getResultList();
+//        });
+//    }
+
     public boolean create(T entity) {
         return jpaService.runInTransaction(entityManager -> {
             entityManager.persist(entity);
@@ -59,6 +67,11 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
         return jpaService.runInTransaction(entityManager -> {
             return entityManager.contains(entity);
         });
+    }
+
+    public static void main(String[] args) {
+        MarketManagerDao m = new MarketManagerDao();
+        System.out.println(m.getMarketMAnagerByIdAdmin(27L));
     }
 
 }

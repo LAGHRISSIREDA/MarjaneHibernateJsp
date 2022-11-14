@@ -1,10 +1,14 @@
 package com.codesigne.marjanepromo.DAO;
 
 import com.codesigne.marjanepromo.helpers.StatusEnum;
+import com.codesigne.marjanepromo.model.AdminCenter;
 import com.codesigne.marjanepromo.model.Promotion;
 
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PromotionDao extends AbstractHibernateDao<Promotion>{
 
@@ -27,6 +31,17 @@ public class PromotionDao extends AbstractHibernateDao<Promotion>{
         }else{
             return null;
         }
+    }
+
+    //liste promotion
+    public List getAllPromotionByIdAdmin(Long id){
+        List<Promotion> promotions = new ArrayList<>();
+        promotions = jpaService.runInTransaction(entityManager -> {
+            return entityManager.createQuery("select p from Promotion p where p.adminCenter.id=:id", Promotion.class)
+                    .setParameter("id", id)
+                    .getResultList();
+        });
+        return promotions;
     }
 
 
@@ -55,11 +70,19 @@ public class PromotionDao extends AbstractHibernateDao<Promotion>{
 //        po.createPromotion(p);
 
         //========================change status
-      Promotion promotion = new Promotion();
-        PromotionDao p = new PromotionDao();
-        promotion = p.findOne(3L);
-        String status = StatusEnum.ACCEPTED.toString();
-        p.updateStatus(promotion,status);
+      PromotionDao p = new PromotionDao();
+        AdminCenter ac = new AdminCenter();
+        AdminCenterDao a = new AdminCenterDao();
+        ac = a.getAdminById(1L);
+        System.out.println(ac.getId());
+        List<Promotion> promotions = new ArrayList<>();
+        promotions = p.getAllPromotionByIdAdmin(ac.getId());
+        for(Promotion pp:promotions){
+            System.out.println(pp.getStatus());
+        }
+//        promotion = p.findOne(3L);
+//        String status = StatusEnum.ACCEPTED.toString();
+//        p.updateStatus(promotion,status);
 
         //=============================afficher promo
 //        Promotion pp = new Promotion();

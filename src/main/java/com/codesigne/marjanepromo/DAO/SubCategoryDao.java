@@ -3,6 +3,7 @@ package com.codesigne.marjanepromo.DAO;
 import com.codesigne.marjanepromo.model.SubCategory;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubCategoryDao extends AbstractHibernateDao<SubCategory>{
@@ -28,11 +29,14 @@ public class SubCategoryDao extends AbstractHibernateDao<SubCategory>{
 
     public static void main(String[] args) {
         SubCategory s = new SubCategory();
-
-        s.setName("Alimentation");
-
+        List<SubCategory> list = new ArrayList<>();
+//        s.setName("Alimentation");
+//        s.setDispo(true);
         SubCategoryDao sub = new SubCategoryDao();
-
-        sub.create(s);
+//        sub.create(s);
+        list = sub.getAllCategories();
+        for (SubCategory ss:list){
+            System.out.println(ss.getName());
+        }
     }
 }

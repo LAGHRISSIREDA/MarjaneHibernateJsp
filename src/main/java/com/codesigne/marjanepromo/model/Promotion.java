@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -21,14 +23,14 @@ public class Promotion implements Serializable {
 
     private int point;
 
-    private Date dateStart;
+    private LocalDate dateStart;
 
-    private Date dateEnd;
+    private LocalDate dateEnd;
 
     @ManyToOne
     private AdminCenter adminCenter;
 
-    @OneToOne
+    @ManyToOne
     private SubCategory subCategory;
 
     //getters and setters
@@ -48,4 +50,8 @@ public class Promotion implements Serializable {
                 ", subCategory=" + subCategory +
                 '}';
     }
+
+
+
+
 }

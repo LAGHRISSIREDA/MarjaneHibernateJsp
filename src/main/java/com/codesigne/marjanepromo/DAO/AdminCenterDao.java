@@ -3,6 +3,7 @@ package com.codesigne.marjanepromo.DAO;
 import com.codesigne.marjanepromo.model.AdminCenter;
 import com.codesigne.marjanepromo.model.Center;
 import com.codesigne.marjanepromo.utils.SendMail;
+import jakarta.persistence.NoResultException;
 
 
 import java.util.ArrayList;
@@ -29,11 +30,17 @@ public class AdminCenterDao extends AbstractHibernateDao<AdminCenter>{
 
     //getadmin by email
     public AdminCenter  getAdminByEmail(String email){
-       return jpaService.runInTransaction(entityManager -> {
-          return  entityManager.createQuery("select a from AdminCenter a where  a.email = :email",AdminCenter.class)
-                    .setParameter("email",email)
-                    .getSingleResult();
-        });
+        AdminCenter ad;
+       try {
+           ad =  jpaService.runInTransaction(entityManager -> {
+               return  entityManager.createQuery("select a from AdminCenter a where  a.email = :email",AdminCenter.class)
+                       .setParameter("email",email)
+                       .getSingleResult();
+           });
+       }catch(NoResultException nre){
+           return null;
+       }
+       return ad;
 
     }
 
@@ -67,7 +74,7 @@ public class AdminCenterDao extends AbstractHibernateDao<AdminCenter>{
 
 
     //test functions
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 //        AdminCenter ad = new AdminCenter();
 //       ad.setFirstname("reda");
 //        ad.setLastname("laghrissi");
