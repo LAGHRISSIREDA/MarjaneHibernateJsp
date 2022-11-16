@@ -3,8 +3,10 @@ package com.codesigne.marjanepromo.controller;
 import com.codesigne.marjanepromo.DAO.AdminCenterDao;
 import com.codesigne.marjanepromo.DAO.AdminGeneralDao;
 import com.codesigne.marjanepromo.DAO.CenterDao;
+import com.codesigne.marjanepromo.DAO.PromotionDao;
 import com.codesigne.marjanepromo.helpers.HashPassword;
 import com.codesigne.marjanepromo.helpers.RandomPassword;
+import com.codesigne.marjanepromo.helpers.StatusEnum;
 import com.codesigne.marjanepromo.model.AdminCenter;
 import com.codesigne.marjanepromo.model.AdminGeneral;
 import com.codesigne.marjanepromo.model.Center;
@@ -23,12 +25,15 @@ public class AdminGeneralController extends HttpServlet {
         String path = request.getServletPath();
         String newLog = request.getParameter("log");
         AdminCenterDao adCenter = new AdminCenterDao();
+        PromotionDao promo = new PromotionDao();
         CenterDao c = new CenterDao();
         AdminCenter ad = new AdminCenter();
         List<Center> listCenter = new ArrayList<>();
         List<AdminCenter> listAdmin = new ArrayList<>();
         Center oneCenter = new Center();
         AdminGeneral a = new AdminGeneral();
+        AdminGeneralDao adminGeneralDao = new AdminGeneralDao();
+        int numberPrendingPromotion,numberRejectedPromotion,numberAcceptedPromotion;
 
         if (path.equals("/loginForm.general")) {
             Cookie[] cookies = request.getCookies();
@@ -72,8 +77,16 @@ public class AdminGeneralController extends HttpServlet {
             if(log.equals("0")){
                 request.getRequestDispatcher("index.jsp").forward(request,response);
             }else{
+                numberAcceptedPromotion = promo.getNumberPromotionByStatus(StatusEnum.ACCEPTED.toString()).size();
+                numberPrendingPromotion = promo.getNumberPromotionByStatus(StatusEnum.PENDING.toString()).size();
+                numberRejectedPromotion = promo.getNumberPromotionByStatus(StatusEnum.REJECTED.toString()).size();
+                a = adminGeneralDao.getAdminById(Long.parseLong(log));
                 listCenter = c.getAllCenter();
                 listAdmin = adCenter.getAllAdmins();
+
+                request.setAttribute("accepted",numberAcceptedPromotion);
+                request.setAttribute("rejected",numberRejectedPromotion);
+                request.setAttribute("pending",numberPrendingPromotion);
                 request.setAttribute("admin",a);
                 request.setAttribute("center",listCenter);
                 request.setAttribute("admins",listAdmin);
