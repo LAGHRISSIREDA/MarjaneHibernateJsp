@@ -62,6 +62,8 @@ public class MarketManagerDao extends AbstractHibernateDao<MarketManager> {
         }
     }
 
+
+
     public List getMarketMAnagerByIdAdmin(Long id){
         List<MarketManager> mm = new ArrayList<>();
         try{
