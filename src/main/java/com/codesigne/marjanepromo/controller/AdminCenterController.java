@@ -96,6 +96,10 @@ public class AdminCenterController extends HttpServlet {
                 ck.setMaxAge(24 * 60 * 60);//setting cookie to expiry in 1 day
                 response.addCookie(ck);//adding cookie in the response
                 response.sendRedirect("dashboard.center");
+            }else{
+                String message = "Incorrect Email or Password !";
+                request.setAttribute("message",message);
+                request.getRequestDispatcher("views/admincenter/login.jsp").forward(request,response);
             }
         }else if(path.equals("/create.center")){
             Cookie[] cookies = request.getCookies();
