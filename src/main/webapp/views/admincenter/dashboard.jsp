@@ -355,7 +355,15 @@
                                         </td>
                                         <td class="py-3 px-6 text-center">
                                             <div class="flex items-center justify-center">
-                                                <span class="font-medium">${t.status}</span>
+                                                <c:if test="${t.status=='PENDING'}">
+                                                    <span class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs">${t.status}</span>
+                                                </c:if>
+                                                <c:if test="${t.status=='ACCEPTED'}">
+                                                    <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">${t.status}</span>
+                                                </c:if>
+                                                <c:if test="${t.status=='REJECTED'}">
+                                                    <span class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">${t.status}</span>
+                                                </c:if>
                                             </div>
                                         </td>
                                     </tr>
