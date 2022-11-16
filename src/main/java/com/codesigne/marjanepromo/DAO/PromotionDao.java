@@ -7,7 +7,6 @@ import com.codesigne.marjanepromo.model.Promotion;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PromotionDao extends AbstractHibernateDao<Promotion>{
@@ -44,6 +43,28 @@ public class PromotionDao extends AbstractHibernateDao<Promotion>{
         return promotions;
     }
 
+    //getone promotion
+    public Promotion getOnePromotion(long id){
+        return findOne(id);
+    }
+
+    //get promotions by id category
+    public List getAllPromotionByIdCategory(Long id){
+        List<Promotion> promotions = new ArrayList<>();
+        LocalTime currentTime = LocalTime.now();
+        if (currentTime.isAfter(LocalTime.of(8, 0)) && currentTime.isBefore(LocalTime.of(12, 30))) {
+
+                 promotions = jpaService.runInTransaction(entityManager -> {
+                     return entityManager.createQuery("SELECT p FROM Promotion p WHERE p.subCategory.id=:id", Promotion.class)
+                    .setParameter("id",id)
+                    .getResultList();
+        });
+        }else{
+            return null;
+        }
+        return promotions;
+    }
+
 
     //create promotion
 
@@ -55,6 +76,15 @@ public class PromotionDao extends AbstractHibernateDao<Promotion>{
     public Promotion updateStatus(Promotion p,String status){
         p.setStatus(status.toUpperCase());
         return update(p);
+    }
+
+    //get number of PENDING Promotion
+    public List getNumberPromotionByStatus(String status){
+        return jpaService.runInTransaction(entityManager -> {
+            return entityManager.createQuery("SELECT p FROM Promotion  p WHERE p.status like :status")
+                    .setParameter("status",status)
+                    .getResultList();
+        });
     }
 
     public static void main(String[] args) {
@@ -71,15 +101,15 @@ public class PromotionDao extends AbstractHibernateDao<Promotion>{
 
         //========================change status
       PromotionDao p = new PromotionDao();
-        AdminCenter ac = new AdminCenter();
-        AdminCenterDao a = new AdminCenterDao();
-        ac = a.getAdminById(1L);
-        System.out.println(ac.getId());
-        List<Promotion> promotions = new ArrayList<>();
-        promotions = p.getAllPromotionByIdAdmin(ac.getId());
-        for(Promotion pp:promotions){
-            System.out.println(pp.getStatus());
-        }
+//        AdminCenter ac = new AdminCenter();
+//        AdminCenterDao a = new AdminCenterDao();
+//        ac = a.getAdminById(1L);
+//        System.out.println(ac.getId());
+//        List<Promotion> promotions = new ArrayList<>();
+//        promotions = p.getAllPromotionByIdAdmin(ac.getId());
+//        for(Promotion pp:promotions){
+//            System.out.println(pp.getStatus());
+//        }
 //        promotion = p.findOne(3L);
 //        String status = StatusEnum.ACCEPTED.toString();
 //        p.updateStatus(promotion,status);
