@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../includes/headers/headerAdminGeneral.jsp">
   <jsp:param name="navbar" value="navbar"/>
@@ -115,11 +116,45 @@
         </div>
       </div>
 
+      <div class="max-w-6xl mx-auto px-4">
+            <%--            statistis--%>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 gap-4">
+              <div class="bg-yellow-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-45">
+                  <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                </div>
+                <div class="text-right">
+                  <p class="text-2xl">${pending}</p>
+                  <p>Number Of Pending Promotions</p>
+                </div>
+              </div>
+              <div class="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-45">
+                  <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                </div>
+                <div class="text-right">
+                  <p class="text-2xl">${accepted}</p>
+                  <p>Number Of Accepted Promotions</p>
+                </div>
+              </div>
+              <div class="bg-red-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-45">
+                  <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                </div>
+                <div class="text-right">
+                  <p class="text-2xl">${rejected}</p>
+                  <p>Number Of Rejected Promotions</p>
+                </div>
+              </div>
+            </div>
+        <!-- Card -->
+
+      </div>
+
       <div class="mt-8">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 <%--          <h2 class="text-lg leading-6 font-medium text-gray-900">Add new Center Admin</h2>--%>
-          <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- Card -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 gap-4">
 
             <div class="bg-white overflow-hidden  rounded-lg">
               <button class="rounded-full bg-green-500 text-white shadow font-bold border-2 py-2 px-5 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300" type="button" data-modal-toggle="authentication-modal">Clic To Add New Center Admin</button>
@@ -127,12 +162,6 @@
 
           <%--  ------------------------------------------modal start----------------------------------------- --%>
 
-            <!-- Modal toggle -->
-<%--           <button class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" data-modal-toggle="authentication-modal">--%>
-<%--            Toggle modal--%>
-<%--          </button>--%>
-
-            <!-- Main modal -->
             <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
               <div class="relative p-4 w-full max-w-md h-full md:h-auto">
                 <!-- Modal content -->
@@ -235,7 +264,7 @@
                       <td class="py-3 px-6 text-center">
                         <div class="flex item-center justify-center">
                           <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                            <a href="/delete.general?id=${t.id}">
+                            <a  href="/delete.general?id=${t.id}">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                               </svg>
@@ -258,6 +287,9 @@
 </div>
 
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+    <script>
+
+    </script>
 <%--footer--%>
 <%--<jsp:include page="../includes/footer.jsp">--%>
 <%--  <jsp:param name="navbar" value="navbar"/>--%>
